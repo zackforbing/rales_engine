@@ -1,4 +1,4 @@
-class Api::V1::ItemsController < ApplicationController
+class Api::V1::ItemsController < Api::V1::BaseController
 
   def index
     @items = Item.all.to_json
@@ -9,5 +9,4 @@ class Api::V1::ItemsController < ApplicationController
     @item = Item.find(params[:id])
     render json: @item
   end
-
 end

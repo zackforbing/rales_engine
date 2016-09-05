@@ -1,5 +1,5 @@
-class Api::V1::InvoicesController < ApplicationController
-
+class Api::V1::InvoicesController < Api::V1::BaseController
+  
   def index
     @invoices = Invoice.all.to_json
     render json: @invoices
@@ -9,5 +9,4 @@ class Api::V1::InvoicesController < ApplicationController
     @invoice = Invoice.find(params[:id])
     render json: @invoice
   end
-
 end

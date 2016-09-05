@@ -1,5 +1,4 @@
-class Api::V1::MerchantsController < ApplicationController
-
+class Api::V1::MerchantsController < Api::V1::BaseController
   def index
     @merchants = Merchant.all.to_json
     render json: @merchants
@@ -9,5 +8,4 @@ class Api::V1::MerchantsController < ApplicationController
     @merchant = Merchant.find(params[:id])
     render json: @merchant
   end
-
 end
