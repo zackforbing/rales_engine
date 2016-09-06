@@ -1,4 +1,4 @@
-class Api::V1::CustomersController < Api::V1::BaseController
+class Api::V1::CustomersController < ApplicationController
   def index
     @customers = Customer.all.to_json
     render json: @customers

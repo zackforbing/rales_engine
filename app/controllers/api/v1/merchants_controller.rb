@@ -1,4 +1,4 @@
-class Api::V1::MerchantsController < Api::V1::BaseController
+class Api::V1::MerchantsController < ApplicationController
   def index
     @merchants = Merchant.all.to_json
     render json: @merchants

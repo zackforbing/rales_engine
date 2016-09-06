@@ -1,4 +1,4 @@
-class Api::V1::InvoiceItemsController < Api::V1::BaseController
+class Api::V1::InvoiceItemsController < ApplicationController
   def index
     @invoice_items = InvoiceItem.all.to_json
     render json: @invoice_items

@@ -1,4 +1,4 @@
-class Api::V1::TransactionsController < Api::V1::BaseController
+class Api::V1::TransactionsController < ApplicationController
   def index
     @transactions = Transaction.all.to_json
     render json: @transactions
