@@ -1,4 +1,4 @@
-class Api::V1::ItemsController < Api::V1::BaseController
+class Api::V1::ItemsController < ApplicationController
   def index
     @items = Item.all.to_json
     render json: @items
