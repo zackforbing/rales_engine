@@ -1,11 +1,13 @@
 class Api::V1::TransactionsController < ApplicationController
+  respond_to :json
+
   def index
     @transactions = Transaction.all.to_json
-    render json: @transactions
+    respond_with @transactions
   end
 
   def show
     @transaction = Transaction.find(params[:id])
-    render json: @transaction
+    respond_with @transaction
   end
 end
