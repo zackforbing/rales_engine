@@ -1,8 +1,6 @@
 class Api::V1::Invoices::MerchantsController < ApplicationController
-
   def show
-    invoice = Invoice.find(params[:id])
-    merchant = Merchant.find(invoice.merchant_id)
+    merchant = Invoice.find(params[:id]).merchant
     respond_with merchant
   end
 end
