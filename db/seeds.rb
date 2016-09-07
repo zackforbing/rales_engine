@@ -24,7 +24,7 @@ end
 CSV.foreach("csv data/items.csv", headers: true, header_converters: :symbol) do |row|
   item = Item.create(name: row[:name],
                      description: row[:description],
-                     unit_price: row[:unit_price],
+                     unit_price: (row[:unit_price].to_i / 100.0),
                      merchant_id: row[:merchant_id],
                      created_at: row[:created_at],
                      updated_at: row[:updated_at])
@@ -44,7 +44,7 @@ CSV.foreach("csv data/invoice_items.csv", headers: true, header_converters: :sym
   invoice_item = InvoiceItem.create(item_id: row[:item_id],
                                     invoice_id: row[:invoice_id],
                                     quantity: row[:quantity],
-                                    unit_price: row[:unit_price],
+                                    unit_price: (row[:unit_price].to_i / 100.0),
                                     created_at: row[:created_at],
                                     updated_at: row[:updated_at])
   puts "invoice_item ##{invoice_item.id} created!"
