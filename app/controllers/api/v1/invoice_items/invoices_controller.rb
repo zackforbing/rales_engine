@@ -1,8 +1,6 @@
 class Api::V1::InvoiceItems::InvoicesController < ApplicationController
-
   def show
-    invoice_item = InvoiceItem.find(params[:id])
-    invoices = Invoice.where(id: invoice_item.invoice_id)
-    respond_with invoices
+    invoice = InvoiceItem.find(params[:id]).invoice
+    respond_with invoice
   end
 end

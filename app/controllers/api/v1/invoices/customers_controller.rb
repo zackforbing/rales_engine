@@ -1,8 +1,6 @@
 class Api::V1::Invoices::CustomersController < ApplicationController
-
   def show
-    invoice = Invoice.find(params[:id])
-    customer = Customer.find(invoice.customer_id)
+    customer = Invoice.find(params[:id]).customer
     respond_with customer
   end
 end
