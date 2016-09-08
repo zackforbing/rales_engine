@@ -14,19 +14,20 @@ class Merchant < ApplicationRecord
   #   self.customers.joins(:invoices).where( { invoices: { status: "pending" } } )
   # end
 
-  # def favorite_customer
-  #   self.customers.joins(:invoices).group(:id).select("customers.*, count(invoices.customer_id) AS order_count").order("order_count DESC").first
-  # end
+  def favorite_customer
+    self.customers.joins(:invoices).group(:id).select("customers.*, count(invoices.customer_id) AS order_count").order("order_count DESC").first
+  end
 
   # def total_revenue
   #   self.invoices.joins(:invoice_items).where.not(status: "pending").sum("invoice_items.quantity * invoice_items.unit_price")
   # end
 
   def self.most_revenue(number_of_results)
-    self.joins(:invoices).select("merchants.id, invoice_items.quantity, invoice_items.unit_price, sum(invoice_items.quantity * invoice_items.unit_price)").limit(number_of_results)
+    self.joins(:invoices, :invoice_items).select("merchants.id, invoice_items.quantity, invoice_items.unit_price, sum(invoice_items.quantity * invoice_items.unit_price) AS total_amount").limit(number_of_results)
   end
 
   def self.most_items(x)
-    self.joins(:invoice_items).group("merchants.id, invoice_items.quantity").select("merchants.id, invoice_items.quantity, count(invoice_items.quantity) AS items_sold").order("items_sold DESC").limit(x)
+    self.joins(:invoice)
+    # .group("merchants.id, invoice_items.quantity").select("merchants.id, invoice_items.quantity, count(invoice_items.quantity) AS items_sold").order("items_sold DESC").limit(x)
   end
 end
