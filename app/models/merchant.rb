@@ -2,9 +2,8 @@ class Merchant < ApplicationRecord
   has_many :items
   has_many :invoices
   has_many :customers, through: :invoices
-  scope :valid_transactions, -> { .joins(:invoice)}
-
-  # has_many :invoice_items, through: :invoices
+  has_many :invoice_items, through: :invoices
+  has_many :transactions, through: :invoices
 
   def self.revenue(date)
     date = Date.parse("2012-08-09")
@@ -13,7 +12,8 @@ class Merchant < ApplicationRecord
   end
 
   def customers_with_pending_invoices
-    self.invoices.failed
+    self.customers.joins(invoices: [:transactions]).where( { transactions: { result: "failed" } })
+    # .joins(invoices: [:transactions]).where( { transactions: { result: "failed" } })
     # self.customers.joins(:invoices).where( { invoices.unpaid } )
   end
 
@@ -22,13 +22,11 @@ class Merchant < ApplicationRecord
   end
 
   def total_revenue
-    self.invoices.joins(:invoice_items).merge( Transaction.paid ).sum("invoice_items.quantity * invoice_items.unit_price")
+    self.invoices.joins(:invoice_items).sum("invoice_items.quantity * invoice_items.unit_price")
   end
 
   def self.most_revenue(number_of_results)
-    .joins(:invoices [:invoice_items, :transactions]).where(transactions: { result: "success"})
-
-    self.joins(:invoices).select("merchants.id, invoice_items.quantity, invoice_items.unit_price, sum(invoice_items.quantity * invoice_items.unit_price) AS total_amount").limit(number_of_results)
+    self.joins(:invoice_items).group("merchants.id, invoice_items.id").select("merchants.id, invoice_items.*, sum(invoice_items.quantity * invoice_items.unit_price) AS total_amount").order("total_amount DESC").first(number_of_results)
   end
 
   def self.most_items(x)
