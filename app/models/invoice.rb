@@ -11,6 +11,6 @@ class Invoice < ApplicationRecord
   end
 
   def self.unpaid
-    joins(:transactions).where("result = 'failed'")
+    joins(:transactions).where.not("result = 'success'")
   end
 end
