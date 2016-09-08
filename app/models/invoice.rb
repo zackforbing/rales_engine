@@ -6,4 +6,10 @@ class Invoice < ApplicationRecord
   belongs_to :customer
   belongs_to :merchant
 
+  scope :paid, -> { joins(:transactions).where("transactions.result = 'success'") }
+  scope :failed, -> { joins(:transactions).where("transactions.result = 'failed'") }
+
+  def self.failed_transactions
+    joins(:transactions).unscope(:transactions).where.not("result = 'success'")
+  end
 end
