@@ -38,6 +38,7 @@ Rails.application.routes.draw do
         get '/find', to: "find#show"
         get '/find_all', to: "find#index"
         get '/api/v1/items/most_items', to: "most_items#index"
+        get '/:id/best_day', to: "best_day#show"
       end
 
       namespace :merchants do
@@ -48,6 +49,10 @@ Rails.application.routes.draw do
         get '/:id/invoices', to: "invoices#index"
         get '/api/v1/merchants/:id/revenue', to: "revenue#show"
         get '/api/v1/merchants/most_items', to: "most_items#index"
+        get '/:id/customer_with_pending_invoices', to: 'invoices#show's
+        get '/:id/favorite_customer', to: 'customers#show'
+        get 'revenue', to: "revenue#index"
+        get 'most_revenue', to: "revenue#show"
       end
 
       namespace :transactions do

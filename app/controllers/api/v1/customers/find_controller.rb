@@ -5,8 +5,7 @@ class Api::V1::Customers::FindController < ApplicationController
   end
 
   def show
-    customer_found = Customer.find_by(search_param)
-    respond_with customer_found
+    customer_found = Customer.find_by(search
   end
 
   private
