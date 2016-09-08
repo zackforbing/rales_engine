@@ -1,4 +1,5 @@
 class Transaction < ApplicationRecord
   belongs_to :invoice
-  default_scope { where.not( result: "failed" ) }
+  scope :fail, -> { where( result: "failed" ).limit(1) }
+  scope :paid, -> { where.not( result: "success" ) }
 end
