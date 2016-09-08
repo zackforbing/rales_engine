@@ -6,11 +6,4 @@ class Invoice < ApplicationRecord
   belongs_to :customer
   belongs_to :merchant
 
-  def self.paid
-    joins(:transactions).where("result = 'success'")
-  end
-
-  def self.unpaid
-    joins(:transactions).where.not("result = 'success'")
-  end
 end
