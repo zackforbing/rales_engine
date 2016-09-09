@@ -1,11 +1,17 @@
 class Api::V1::Merchants::RevenueController < ApplicationController
   def index
-    merchant = Merchant.find(params[:id]).revenue_by_date(params[:date])
-    respond_with merchant
+    if params[:date]
+      respond_with Merchant.all_revenue_by_date(params[:date])
+    else
+      respond_with Merchant.most_revenue(params[:quantity])
+    end
   end
 
   def show
-    merchants = Merchant.most_revenue(params[:quantity])
-    respond_with merchants
+    if params[:date]
+      respond_with Merchant.find(params[:id]).total_revenue_by_date(params[:date])
+    else
+      respond_with Merchant.find(params[:id]).total_revenue
+    end
   end
 end

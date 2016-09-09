@@ -5,12 +5,16 @@ class Merchant < ApplicationRecord
   has_many :invoice_items, through: :invoices
   has_many :transactions, through: :invoices
 
-  def self.revenue_by_date(date)
+  def self.all_revenue_by_date(date)
     self.joins(invoices: [:transactions, :invoice_items])
-        .merge( Invoice.successful_trans )
+        .merge( Invoice.successful )
         .group("merchants.id, invoice_items.id")
         .select("merchants.*, invoice_items.*, sum(invoice_items.quantity * invoice_items.unit_price) AS total_price")
         .where("invoices.created_at = '#{date}'")
+  end
+
+  def total_revenue_by_date(date)
+    self.invoices.successful.joins(:invoice_items).where("invoices.created_at = '#{date}'").sum("invoice_items.quantity * invoice_items.unit_price")
   end
 
   def customers_with_pending_invoices
@@ -22,7 +26,7 @@ class Merchant < ApplicationRecord
     Customer.find(customer_id)
   end
 
-  def revenue
+  def total_revenue
     self.invoices.successful
         .joins(:invoice_items)
         .sum("invoice_items.quantity * invoice_items.unit_price")
@@ -30,10 +34,14 @@ class Merchant < ApplicationRecord
 
   def self.most_revenue(number_of_results)
     self.joins(invoices: [:invoice_items])
-        .merge( Invoice.successful_trans)
+        .merge( Invoice.successful)
         .group("merchants.id, invoice_items.id")
         .select("merchants.id, invoice_items.*, sum(invoice_items.quantity * invoice_items.unit_price) AS total_amount")
         .order("total_amount DESC")
         .first(number_of_results)
+  end
+
+  def self.most_items(number_of_results)
+    self.joins(:invoice_items).merge(Invoice.successful).group("merchants.id").order("sum(invoice_items.quantity) DESC").first(number_of_results)
   end
 end
