@@ -47,13 +47,9 @@ Rails.application.routes.draw do
         get '/:id/items', to: "items#index"
         get '/:id/invoices', to: "invoices#index"
         get '/:id/customer_with_pending_invoices', to: 'invoices#show'
-        # GET /api/v1/merchants/:id/customers_with_pending_invoices
         get '/:id/favorite_customer', to: 'customers#show'
-        # GET /api/v1/merchants/:id/favorite_customer
-        get 'revenue', to: "revenue#index"
-        # GET /api/v1/merchants/revenue?date=x
-        get 'most_revenue', to: "revenue#show"
-        # GET /api/v1/merchants/most_revenue?quantity=x
+        get '/revenue', to: "revenue#index"
+        get '/most_revenue', to: "revenue#show"
       end
 
       namespace :transactions do

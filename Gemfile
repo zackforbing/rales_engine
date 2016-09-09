@@ -33,9 +33,15 @@ gem 'responders'
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'byebug', platform: :mri
-  gem 'rspec-rails'
+  # gem 'rspec-rails'
   gem 'pry'
   gem 'shoulda-matchers'
+end
+
+group :test do
+  gem 'simplecov'
+  gem 'faraday'
+  gem 'minitest'
 end
 
 group :development do

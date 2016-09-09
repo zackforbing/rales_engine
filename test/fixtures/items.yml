@@ -1,0 +1,13 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  name: "Hammer"
+  description: "Something used to smash stuff"
+  unit_price: 19.97
+  merchant_id: 1
+
+two:
+  name: "Nail"
+  description: "I need a hammer"
+  unit_price: 1.97
+  merchant_id: 2

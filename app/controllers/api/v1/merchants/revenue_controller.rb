@@ -5,7 +5,7 @@ class Api::V1::Merchants::RevenueController < ApplicationController
   end
 
   def show
-    merchants = Merchant.find(params[:id]).most_revenue(params[:quantity])
+    merchants = Merchant.most_revenue(params[:quantity])
     respond_with merchants
   end
 end
