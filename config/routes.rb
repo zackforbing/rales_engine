@@ -38,6 +38,7 @@ Rails.application.routes.draw do
         get '/find', to: "find#show"
         get '/find_all', to: "find#index"
         get '/most_items', to: "most_items#index"
+        get '/most_revenue', to: "most_revenue#index"
         get '/:id/best_day', to: "best_day#show"
       end
 
@@ -49,7 +50,7 @@ Rails.application.routes.draw do
         get '/:id/invoices', to: "invoices#index"
         get '/:id/revenue', to: "revenue#show"
         get '/most_items', to: "most_items#index"
-        get '/:id/customer_with_pending_invoices', to: "invoices#show"
+        get '/:id/customers_with_pending_invoices', to: "invoices#show"
         get '/:id/favorite_customer', to: "customers#show"
         get '/revenue', to: "revenue#index"
         get '/most_revenue', to: "revenue#index"

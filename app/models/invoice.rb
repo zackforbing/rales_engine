@@ -7,14 +7,10 @@ class Invoice < ApplicationRecord
   belongs_to :merchant
 
   def self.pending
-    joins(:transactions).where(transactions: { result: "failed" })
+    joins(:transactions).where("transactions.result = 'failed'")
   end
 
   def self.successful
-      joins(:transactions).where("result = 'success'")
-  end
-
-  def self.successful_trans
-    joins(:transactions).where(transactions: {result: "success"})
+      joins(:transactions).where("transactions.result = 'success'")
   end
 end
