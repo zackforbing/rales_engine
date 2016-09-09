@@ -9,7 +9,7 @@ class Api::V1::Merchants::RevenueController < ApplicationController
 
   def show
     if params[:date]
-      # single merchant revenue by date
+      respond_with Merchant.find(params[:id]).total_revenue_by_date(params[:date])
     else
       respond_with Merchant.find(params[:id]).total_revenue
     end
