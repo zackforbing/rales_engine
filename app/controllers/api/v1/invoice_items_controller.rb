@@ -1,11 +1,9 @@
 class Api::V1::InvoiceItemsController < ApplicationController
   def index
-    invoice_items = InvoiceItem.all
-    respond_with invoice_items
+    respond_with InvoiceItem.all
   end
 
   def show
-    invoice_item = InvoiceItem.find(params[:id])
-    respond_with invoice_item
+    respond_with InvoiceItem.find(params[:id])
   end
 end
