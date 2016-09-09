@@ -5,7 +5,7 @@ class Merchant < ApplicationRecord
   has_many :invoice_items, through: :invoices
   has_many :transactions, through: :invoices
 
-  def self.revenue_by_date(date)
+  def self.all_revenue_by_date(date)
     self.joins(invoices: [:transactions, :invoice_items])
         .merge( Invoice.successful_trans )
         .group("merchants.id, invoice_items.id")
