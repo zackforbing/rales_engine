@@ -5,7 +5,7 @@ class Api::V1::Items::FindController < ApplicationController
   end
 
   def show
-    item_found = Item.find_by(search_param)
+    item_found = Item.where(search_param).first
     respond_with item_found
   end
 

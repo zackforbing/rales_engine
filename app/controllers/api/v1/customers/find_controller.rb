@@ -5,12 +5,13 @@ class Api::V1::Customers::FindController < ApplicationController
   end
 
   def show
-    customer_found = Customer.find_by(search
+    customer_found = Customer.find_by(search_param)
+    respond_with customer_found
   end
 
   private
 
   def search_param
-    params.permit(:first_name, :last_name, :created_at, :updated_at)
+    params.permit(:id, :first_name, :last_name, :created_at, :updated_at)
   end
 end

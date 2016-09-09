@@ -5,7 +5,7 @@ class Merchant < ApplicationRecord
   has_many :invoice_items, through: :invoices
   has_many :transactions, through: :invoices
 
-  def self.revenue(date)
+  def self.all_revenue_by_date(date)
     date = Date.parse("2012-08-09")
     self.joins(:invoices).group(:id).select("merchants.*, invoice_items.*, sum(invoice_items.quantity * invoice_items.unit_price) AS total_price").where("invoices.created_at = #{date}")
     # :created_at => selected_date.beginning_of_day..selected_date.end_of_day)
