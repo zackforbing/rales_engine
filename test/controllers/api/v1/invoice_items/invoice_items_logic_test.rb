@@ -1,4 +1,4 @@
-require_relative '../../../test_helper'
+require 'test_helper'
 
 class Api::V1::InvoiceItems::InvoiceItemsLogicTest < ActionDispatch::IntegrationTest
   test "can get random invoice item" do

@@ -1,4 +1,4 @@
-require_relative '../../../test_helper'
+require 'test_helper'
 
 class Api::V1::Customers::CustomersLogicTest < ActionDispatch::IntegrationTest
   test "can get random customer" do
@@ -119,7 +119,7 @@ class Api::V1::Customers::CustomersLogicTest < ActionDispatch::IntegrationTest
     items = JSON.parse(response.body)
     assert_equal items.count, 2
   end
-  # 
+  #
   # test "can find a customers invoices" do
   #   customer_1 = Customer.first
   #   customer_2 = Customer.second
