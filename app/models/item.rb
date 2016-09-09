@@ -8,7 +8,8 @@ class Item < ApplicationRecord
   end
 
   def best_day
-    self.invoices.successful.group(:id).order("sum(invoice_items.quantity * invoice_items.unit_price) DESC").first.created_at
+    result = self.invoices.successful.group(:id).order("sum(invoice_items.quantity * invoice_items.unit_price) DESC").first.created_at
+    {"best_day"=>"#{result}"}
   end
 
   def self.most_revenue(number_of_results)
