@@ -6,11 +6,7 @@ class Merchant < ApplicationRecord
   has_many :transactions, through: :invoices
 
   def self.all_revenue_by_date(date)
-    self.joins(invoices: [:transactions, :invoice_items])
-        .merge( Invoice.successful )
-        .group("merchants.id, invoice_items.id")
-        .select("merchants.*, invoice_items.*, sum(invoice_items.quantity * invoice_items.unit_price) AS total_revenue")
-        .where("invoices.created_at = '#{date}'").total_revenue
+    self.joins(:invoice_items).merge(Invoice.successful).where("invoices.created_at = '#{date}'").sum("invoice_items.quantity * invoice_items.unit_price")
   end
 
   def total_revenue_by_date(date)
