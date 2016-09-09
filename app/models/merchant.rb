@@ -17,6 +17,10 @@ class Merchant < ApplicationRecord
     self.invoices.successful.joins(:invoice_items).where("invoices.created_at = '#{date}'").sum("invoice_items.quantity * invoice_items.unit_price")
   end
 
+  def total_revenue_by_date(date)
+    self.invoices.successful.joins(:invoice_items).where("invoices.created_at = '#{date}'").sum("invoice_items.quantity * invoice_items.unit_price")
+  end
+
   def customers_with_pending_invoices
     invoices.pending.distinct.map(&:customer)
   end
@@ -34,6 +38,10 @@ class Merchant < ApplicationRecord
 
   def self.most_revenue(number_of_results)
     self.joins(:invoice_items).merge(Invoice.successful).group("merchants.id").order("sum(invoice_items.quantity * invoice_items.unit_price) DESC").first(number_of_results)
+  end
+
+  def self.most_items(number_of_results)
+    self.joins(:invoice_items).merge(Invoice.successful).group("merchants.id").order("sum(invoice_items.quantity) DESC").first(number_of_results)
   end
 
   def self.most_items(number_of_results)
